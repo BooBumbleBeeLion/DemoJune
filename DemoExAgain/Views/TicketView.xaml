@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="DemoExAgain.Views.TicketView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:DemoExAgain.Views"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             d:Background="White"
+             d:Style="{StaticResource ctrl}">
+    <StackPanel HorizontalAlignment="Center">
+        <StackPanel x:Name="ticket"
+                    Margin="30">
+            <TextBlock Text="Талон с данными о заказе"
+                       HorizontalAlignment="Center"
+                       FontSize="30"
+                       Margin="0 0 0 5" />
+            <TextBlock Text="{Binding Source={x:Static sys:DateTime.Today},StringFormat=Дата заказа: {0:d MMMM yyyy}, ConverterCulture=Ru-ru, Mode=OneTime}" />
+            <TextBlock Text="{Binding Number, StringFormat=Номер заказа: {0}}" />
+            <TextBlock Text="Состав заказа" />
+            <ItemsControl ItemsSource="{Binding Products, Mode=OneTime}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding Product.Name, StringFormat='{}{0},', Mode=OneTime}" />
+                            <Run Text="{Binding Count, StringFormat={}{0} шт., Mode=OneTime}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Text="{Binding Sum, Mode=OneTime}" />
+            <TextBlock Text="{Binding Discount, Mode=OneTime}" />
+            <TextBlock Text="{Binding PickupPointName, Mode=OneTime}" />
+            <TextBlock>
+                <Run Text="Код для получения:" />
+                <Run Text="{Binding CodeToGet, Mode=OneTime}"
+                     FontWeight="Bold" />
+            </TextBlock>
+            <TextBlock Text="{Binding DeliveryTime, StringFormat=Срок доставки: {0}, Mode=OneTime}" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    Margin="0 5"
+                    HorizontalAlignment="Center">
+            <Button Content="Сохранить талон в pdf"
+                    Click="OnSaving" />
+            <Button Content="Закрыть"
+                    Click="OnClosing"
+                    Margin="15 0 0 0" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>
