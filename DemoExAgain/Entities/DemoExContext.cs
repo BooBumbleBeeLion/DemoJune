@@ -33,7 +33,7 @@ namespace DemoExAgain.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseMySql("user=root;server=localhost;database=DemoEx;password=bumblebeelion", ServerVersion.Parse("8.0.27-mysql"));
-
+            
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
